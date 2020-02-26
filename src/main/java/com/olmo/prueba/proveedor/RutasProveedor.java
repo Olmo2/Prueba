@@ -1,5 +1,6 @@
 package com.olmo.prueba.proveedor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.olmo.prueba.productos.Producto;
+import com.olmo.prueba.productos.ProductoDAO;
 
 
 @Controller
@@ -19,6 +21,9 @@ public class RutasProveedor {
 	
 	@Autowired
 	ProveedorDAO proveedorDAO;
+	
+	@Autowired
+	ProductoDAO productoDAO;
 	
 	@GetMapping("/proveedores")
 	public ModelAndView todoslosProveedores() {
@@ -36,7 +41,7 @@ public class RutasProveedor {
 		return mav;
 	}
 	
-	@PostMapping("/proveedor/anadir")
+	@PostMapping("/proveedores/anadir")
 	public String proveedorAnadir(@ModelAttribute Proveedor proveedor) {
 		
 		
@@ -48,6 +53,22 @@ public class RutasProveedor {
 	
 	@GetMapping("/proveedores/borrar/{id}")
 	public String proveedoresBorrar(@PathVariable String id) {
+		Proveedor prov =proveedorDAO.findById(id).get();
+		Proveedor pepe =proveedorDAO.findById("pepe").get();
+		System.out.println(prov);
+		List<Producto> listaPrevia=prov.getProductos();
+		for( Producto prod : listaPrevia) {
+			prod.setProv(pepe);
+			System.out.println(prod);
+			productoDAO.save(prod);
+		}
+		listaPrevia.clear();
+		
+		prov.setProductos(listaPrevia);
+		System.out.println(prov);
+		
+		proveedorDAO.save(prov);
+		
 		
 		proveedorDAO.deleteById(id);
 		

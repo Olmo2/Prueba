@@ -1,5 +1,6 @@
 package com.olmo.prueba.productos;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +18,10 @@ public class Producto {
 	@Column
 	private String nombre;
 	
+	@Column
+	private int stock;
+	
+
 	@ManyToOne
 	private Proveedor prov = new Proveedor();
 
@@ -43,6 +48,21 @@ public class Producto {
 	public void setProv(Proveedor prov) {
 		this.prov = prov;
 	}
+	
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+	@Override
+	public String toString() {
+		return "Producto [id=" + id + ", nombre=" + nombre + ", stock=" + stock + ", prov="  + "]";
+	}
+	
+
 	
 	
 	
