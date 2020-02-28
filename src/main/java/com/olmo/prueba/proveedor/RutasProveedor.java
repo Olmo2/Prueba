@@ -53,21 +53,21 @@ public class RutasProveedor {
 	
 	@GetMapping("/proveedores/borrar/{id}")
 	public String proveedoresBorrar(@PathVariable String id) {
-		Proveedor prov =proveedorDAO.findById(id).get();
-		Proveedor pepe =proveedorDAO.findById("pepe").get();
-		System.out.println(prov);
-		List<Producto> listaPrevia=prov.getProductos();
-		for( Producto prod : listaPrevia) {
-			prod.setProv(pepe);
-			System.out.println(prod);
-			productoDAO.save(prod);
-		}
-		listaPrevia.clear();
-		
-		prov.setProductos(listaPrevia);
-		System.out.println(prov);
-		
-		proveedorDAO.save(prov);
+//		Proveedor prov =proveedorDAO.findById(id).get();
+//		Proveedor pepe =proveedorDAO.findById("pepe").get();
+//		System.out.println(prov);
+//		List<Producto> listaPrevia=prov.getProductos();
+//		for( Producto prod : listaPrevia) {
+//			prod.setProv(pepe);
+//			System.out.println(prod);
+//			productoDAO.save(prod);
+//		}
+//		listaPrevia.clear();
+//		
+//		prov.setProductos(listaPrevia);
+//		System.out.println(prov);
+//		
+//		proveedorDAO.save(prov);
 		
 		
 		proveedorDAO.deleteById(id);

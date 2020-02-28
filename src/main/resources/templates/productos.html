@@ -2,18 +2,15 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Wibby</title>
 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="estilo.css">
-
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="shortcut icon" href="Sith_Eternal_insignia_blue.png" type="image/x-icon">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="estilo.css">
 
 
 
@@ -21,79 +18,7 @@
 
 
 </head>
-<style>
-.nav-pills .nav-link {
-	color: grey;
-}
 
-.nav-pills .nav-link:hover {
-	background-color: rgba(255, 255, 255, 0.233);
-	color: white;
-}
-
-.nav-link {
-	color: grey;
-}
-
-.nav-pills .nav-link.active:hover {
-	background-color: rgba(0, 123, 255)
-}
-
-#sidebar-wrapper {
-	overflow-y: scroll;
-	position: fixed;
-	padding: 0.3%;
-	height: 91.5vh;
-	/*@Media mejoraríra*/
-	-webkit-transition: margin .25s ease-out;
-	-moz-transition: margin .25s ease-out;
-	-o-transition: margin .25s ease-out;
-	transition: margin .25s ease-out;
-	background-image: url(Sith_Eternal_insignia_blue.png);
-	background-position: top left;
-	background-repeat: no-repeat;
-}
-
-#sidebar-wrapper::-webkit-scrollbar {
-	display: none;
-}
-
-#sidebar-wrapper .sidebar-heading {
-	padding: 0.875rem 1.25rem;
-	font-size: 1.2rem;
-}
-
-#sidebar-wrapper .list-group {
-	width: 15rem;
-}
-
-#wrapper.toggled #sidebar-wrapper {
-	margin-left: -20rem;
-}
-
-/* width */
-::-webkit-scrollbar {
-	width: 0.6rem;
-	height: 0rem;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 0.1rem grey;
-	border-radius: 10px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-	background: rgb(0, 123, 255);
-	border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-	background: rgb(0, 94, 194);
-}
-</style>
 <body class="bg-dark toggled" id="wrapper">
 
 	<!-- Nav Bar -->
@@ -102,8 +27,8 @@
 		<a class="navbar-brand  col-9 d-flex">
 			<button class="btn btn-primary menu-toggle">Menu</button>
 			<form class="form-inline col-8">
-				<input class="form-control border-primary bg-dark col-10 mx-auto "
-					type="search" placeholder="Search" aria-label="Search">
+				<input class="form-control border-primary bg-dark col-10 mx-auto " type="search" placeholder="Search"
+					aria-label="Search">
 				<button class="btn btn-sm btn-link col-1" type="submit">
 					<i class="material-icons">search</i>
 				</button>
@@ -111,25 +36,22 @@
 		</a>
 
 		<!-- Toggler/collapsibe Button -->
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#collapsibleNavbar">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
 		<!-- Navbar links -->
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<ul class="nav">
-				<li class="nav-item"><a class="nav-link" href="#"><button
-							type="button" class="btn btn-sm btn-outline-success"
-							data-toggle="modal" data-target="#crearProducto">Nuevo
+				<li class="nav-item"><a class="nav-link" href="#"><button type="button"
+							class="btn btn-sm btn-outline-success" data-toggle="modal"
+							data-target="#crearProducto">Nuevo
 							Registro</button></a></li>
-				<li class="nav-item"><a class="nav-link" href="#"> <i
-						class="material-icons">notifications_none</i>
-				</a></li>
-				<li class="nav-item "><a class="nav-link" href="#"> <i
-						class="material-icons">account_circle</i>
+				<li class="nav-item"><a class="nav-link" href="#"> <i class="material-icons">notifications_none</i>
+					</a></li>
+				<li class="nav-item "><a class="nav-link" href="#"> <i class="material-icons">account_circle</i>
 
-				</a></li>
+					</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -143,17 +65,15 @@
 		<div class="sidebar-heading text-light">Base de Datos</div>
 
 		<form class="form-inline">
-			<input class="form-control border-primary bg-dark mx-auto col-9 mb-2"
-				type="search" placeholder="Search" aria-label="Search">
+			<input class="form-control border-primary bg-dark mx-auto col-9 mb-2" type="search" placeholder="Search"
+				aria-label="Search">
 			<button class="btn btn-sm btn-link" type="submit">
 				<i class="material-icons">search</i>
 			</button>
 		</form>
 		<ul class="ml-2 col-9 nav nav-pills flex-column">
-			<li class="nav-item mt-3"><a class="nav-link active "
-				th:href="@{/proveedores}"> Productos</a></li>
-			<li class="nav-item mt-3"><a class="nav-link"
-				th:href="@{/proveedores}"> Proveedores</a></li>
+			<li class="nav-item mt-3"><a class="nav-link active " th:href="@{/proveedores}"> Productos</a></li>
+			<li class="nav-item mt-3"><a class="nav-link" th:href="@{/proveedores}"> Proveedores</a></li>
 
 
 		</ul>
@@ -168,11 +88,10 @@
 
 
 		<div class="container-fluid" id="page-body">
-			<table
-				class="table table-hover table-responsive-sm table-dark table-md">
+			<table class="table table-hover table-responsive-sm table-dark table-md">
 				<thead>
 					<tr>
-						<th scope="col">ID</th>
+						<th scope="col">REF</th>
 						<th scope="col">Nombre</th>
 						<th scope="col">Proveedor</th>
 						<th scope="col">Stock</th>
@@ -182,23 +101,34 @@
 				</thead>
 				<tbody>
 					<tr th:each="prod: ${productos}">
-						<td th:text="${prod.id}"></td>
+						<td th:text="${prod.ref}"></td>
 						<td th:text="${prod.nombre}"></td>
-
-						<div th:if="${prod.prov.nombre}!=null">
-							<td th:text="${prod.prov.nombre}"></td>
-						</div>
-						<div th:unless="${prod.prov.nombre}!=null">
-							<td th:text="Sin Proveedor"></td>
-						</div>
-						<!-- <td th:text="${prod.prov.nombre}"></td>-->
+						<td>
+							<div th:if="${prod.prov}!=null">
+								<p th:text="${prod.prov}"></p>
+							</div>
+							<div th:unless="${prod.prov}!=null">
+								<p>Sin Proveedor</p>
+							</div>
+						</td>
+						<!--
+							th:href="@{/productos/editar/{id}(id=${prod.nombre})}"
+							 <td th:text="${prod.prov.nombre}"></td>-->
 						<td th:text="${prod.stock}"></td>
 
-						<td><a type="button" class="btn btn-sm btn-outline-primary"
-							th:href="@{/productos/editar/{id}(id=${prod.id})}"
-							data-toggle="modal" data-target="#editarProducto">Editar</a> <a
-							type="button" class="btn btn-sm btn-outline-danger"
-							th:href="@{/productos/borrar/{id}(id=${prod.id})}">Borrar</a></td>
+						<td>
+							<a type="button" class="btn btn-sm btn-outline-primary" href="#" data-toggle="modal"
+								data-target="#editarProducto"
+								th:attr="data-nombre=@{${prod.nombre}},
+								data-id=@{${prod.ref}},
+								data-stock=@{${prod.stock}},
+								data-prov=@{${prod.prov}}">
+								Editar
+							</a>
+							<a type="button" class="btn btn-sm btn-outline-danger" th:href="@{/productos/borrar/{id}(id=${prod.ref})}">
+								Borrar
+							</a>
+						</td>
 
 
 					</tr>
@@ -206,59 +136,58 @@
 			</table>
 
 		</div>
-		<!--MODAL -->
-		<div class="modal fade" id="crearProducto" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<!--MODAL CREAR -->
+		<div class="modal fade" id="crearProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title" id="exampleModalLabel">Nuevo Producto</h4>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close"></button>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 					</div>
 
-					<form action="#" th:action="@{/productos/anadir}"
-						th:object="${prod}" method="post">
+					<form action="#" th:action="@{/productos/anadir}" th:object="${prod}" method="post">
 						<div class="modal-body">
 
 							<div class="form-row">
 								<div class="form-group col-md-12">
-									<label for="texto">ID</label> <input type="text"
-										th:field="*{id}" placeholder="inserta un texto"
-										class="form-control" id="texto">
+									<label for="texto">REF</label> <input type="text" th:field="*{ref}"
+										placeholder="inserta un texto" class="form-control" id="texto">
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-12">
-									<label for="texto">Nombre</label> <input type="text"
-										th:field="*{nombre}" placeholder="inserta un texto"
-										class="form-control" id="texto">
+									<label for="texto">Nombre</label> <input type="text" th:field="*{nombre}"
+										placeholder="inserta un texto" class="form-control" id="texto">
 								</div>
 
 								<div class="form-row">
 									<div class="form-group col-md-12">
-										<label for="texto">Stock</label> <input type="text"
-											th:field="*{stock}" placeholder="inserta un texto"
-											class="form-control" id="texto">
+										<label for="texto">Stock</label> <input type="text" th:field="*{stock}"
+											placeholder="inserta un texto" class="form-control" id="texto">
 									</div>
 								</div>
 
 
 								<div class="form-row">
 									<div class="form-group col-md-12">
-										<label for="texto">Proveedor</label>
+										<label for="prov">Proveedor</label>
 										<ul>
-											<li th:each="proveedor: ${proveedores}"><input
-												type="radio" name="provs" th:text="${proveedor.nombre}"
-												th:field="*{prov.id}" th:value="${proveedor.id}" /></li>
+											<li th:each="proveedor: ${proveedores}">
+												<input id="prov" type="radio"
+													name="provs"
+													th:text="${proveedor.nombre}"
+													th:field="*{prov.nombre}"
+													th:value="${proveedor.nombre}"
+													/>
+												</li>
 										</ul>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<input type="submit" value="Añadir"
-								class="btn btn-primary float-right">
+							<input type="submit" value="Añadir" class="btn btn-primary float-right">
 							<button data-dismiss="modal"
 								class="btn btn-outline-danger float-right mr-2">Cancelar</button>
 						</div>
@@ -268,56 +197,62 @@
 		</div>
 
 		<!-- Modal Editar -->
-		<div class="modal fade" id="editarProducto" tabindex="-1"
-			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal " id="editarProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title" id="exampleModalLabel">Editar
-							Producto</h4>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close"></button>
+						<h4 class="modal-title" id="exampleModalLabel"></h4>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 					</div>
 
-					<form action="#" th:action="@{/productos/editar}"
-						th:object="${prod}" method="post">
+					<form action="#" th:action="@{/productos/editar}" th:object="${prod}" method="post">
 						<div class="modal-body">
 
 							<div class="form-row">
 								<div class="form-group col-md-12">
-									<label for="texto">ID</label> <input type="text"
-										th:field="*{id}" class="form-control" id="texto">
+									<label for="ID">REF</label> <input type="text" th:field="*{ref}"
+										class="form-control" id="ID">
 								</div>
 							</div>
 
 							<div class="form-row">
 								<div class="form-group col-md-12">
-									<label for="texto">Nombre</label> <input type="text" required
-										th:field="*{nombre}" placeholder="inserta un texto"
-										class="form-control" id="texto">
+									<label for="nombre">Nombre</label> <input type="text" required th:field="*{nombre}"
+										placeholder="inserta un texto" class="form-control" id="nombre">
+								</div>
+							</div>
+
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<label for="stock">Stock</label> <input type="text" required th:field="*{stock}"
+										placeholder="inserta un texto" class="form-control" id="stock">
 								</div>
 							</div>
 
 
-
 							<div class="form-row">
 								<div class="form-group col-md-12">
-									<label for="texto">Proveedor</label>
+									<label for="proveedor">Proveedor</label>
 									<ul>
-										<li th:each="prov: ${proveedores}"><input type="radio"
-											name="permisos" th:text="${prov.nombre}"
-											th:field="*{prov.id}" th:value="${prov.nombre}" /></li>
+										<li th:each="prov: ${proveedores}"><input type="radio" name="permisos"
+												th:text="${prov.nombre}" th:field="*{prov.nombre}"
+												th:value="${prov.nombre}" id="prov"/></li>
 									</ul>
 								</div>
 							</div>
+
+							
+							
+
+							
 
 
 
 
 						</div>
 						<div class="modal-footer">
-							<input type="submit" value="Guardar"
-								class="btn btn-primary float-right"> <a type="button"
+							<input type="submit" value="Guardar" class="btn btn-primary float-right"> <a type="button"
 								lass="btn btn-danger" th:href="@{/productos}">Cancelar</a>
 						</div>
 					</form>
@@ -330,29 +265,9 @@
 
 
 </body>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script>
-	var visible = false;
-
-	$(".menu-toggle").click(function(e) {
-
-		e.preventDefault();
-		$("#wrapper").toggleClass("toggled");
-		visible = !visible;
-	});
-
-	$("#page-body").click(function() {
-		if (visible) {
-			visible = false;
-			$("#wrapper").toggleClass("toggled");
-		}
-
-	});
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="js.js"></script>
 
 </html>

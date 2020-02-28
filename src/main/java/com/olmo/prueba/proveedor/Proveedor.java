@@ -11,7 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import com.olmo.prueba.productos.Producto;
@@ -21,12 +23,11 @@ import com.olmo.prueba.productos.Producto;
 public class Proveedor {
 
 	@Id
-	private String id = "PROVEEDOR";
+	private String nombre = "PROVEEDOR";
 
-	@Column
-	private String nombre;
+	
 
-	@OneToMany(cascade=CascadeType.DETACH, fetch = FetchType.EAGER, mappedBy = "prov")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "prov")
 	List<Producto> productos = new ArrayList<Producto>();
 
 	public void addProducto(Producto producto) {
@@ -38,7 +39,7 @@ public class Proveedor {
 	}
 	
 
-	@PreDestroy
+	@PreRemove
 	public final void reasignarProveedor() {
 		System.out.println("Destrucción");
 		// recorrer la lista de usuarios reasignando los roles
@@ -48,13 +49,7 @@ public class Proveedor {
 		}
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 
 	public String getNombre() {
 		return nombre;
@@ -75,7 +70,7 @@ public class Proveedor {
 
 	@Override
 	public String toString() {
-		return "Proveedor [id=" + id + ", nombre=" + nombre + ", productos=" + productos + "]";
+		return nombre ;
 	}
 	
 

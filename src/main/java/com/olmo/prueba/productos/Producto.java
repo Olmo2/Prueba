@@ -3,8 +3,11 @@ package com.olmo.prueba.productos;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import org.springframework.lang.Nullable;
 
 import com.olmo.prueba.proveedor.Proveedor;
 
@@ -13,7 +16,7 @@ public class Producto {
 
 	
 	@Id
-	private String id;
+	private String ref;
 	
 	@Column
 	private String nombre;
@@ -22,15 +25,17 @@ public class Producto {
 	private int stock;
 	
 
-	@ManyToOne
+	@ManyToOne(optional=true,fetch=FetchType.EAGER)
 	private Proveedor prov = new Proveedor();
+	
+	
 
-	public String getId() {
-		return id;
+	public String getRef() {
+		return ref;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setRef(String ref) {
+		this.ref = ref;
 	}
 
 	public String getNombre() {
@@ -59,7 +64,7 @@ public class Producto {
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + ", stock=" + stock + ", prov="  + "]";
+		return "Producto [id=" + ref + ", nombre=" + nombre + ", stock=" + stock + ", prov="  + "]";
 	}
 	
 
