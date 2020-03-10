@@ -2,17 +2,15 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="estilo.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="estilo.css">
 
 
 
@@ -30,8 +28,8 @@
 		<a class="navbar-brand  col-9 d-flex">
 			<button class="btn btn-primary menu-toggle">Menu</button>
 			<form class="form-inline col-8">
-				<input class="form-control border-primary bg-dark col-10 mx-auto "
-					type="search" placeholder="Search" aria-label="Search">
+				<input class="form-control border-primary bg-dark col-10 mx-auto " type="search" placeholder="Search"
+					aria-label="Search">
 				<button class="btn btn-sm btn-link col-1" type="submit">
 					<i class="material-icons">search</i>
 				</button>
@@ -39,25 +37,23 @@
 		</a>
 
 		<!-- Toggler/collapsibe Button -->
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#collapsibleNavbar">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
 		<!-- Navbar links -->
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<ul class="nav">
-				<li class="nav-item"><a class="nav-link" href="#"><button
-							type="button" class="btn btn-sm btn-outline-success"
-							data-toggle="modal" data-target="#crearProveedor">Nuevo
-							Registro</button></a></li>
-				<li class="nav-item"><a class="nav-link" href="#"> <i
-						class="material-icons">notifications_none</i>
-				</a></li>
-				<li class="nav-item "><a class="nav-link" href="#"> <i
-						class="material-icons">account_circle</i>
+				<span th:remove="tag" th:if=" (${#authorization.expression('hasAuthority(''ADMIN'')')})">
+				<li class="nav-item"><a class="nav-link" href="#"><button type="button"
+							class="btn btn-sm btn-outline-success" data-toggle="modal"
+							data-target="#crearProducto">Nuevo
+							Registro</button></a></li> </span>
+				<li class="nav-item"><a class="nav-link" th:href="@{/login}"> <i class="material-icons">finguerprint</i>
+					</a></li>
+				<li class="nav-item "><a class="nav-link" th:href="@{/logout}"> <i class="material-icons">account_circle</i>
 
-				</a></li>
+					</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -71,8 +67,8 @@
 		<div class="sidebar-heading text-light">Base de Datos</div>
 
 		<form class="form-inline">
-			<input class="form-control border-primary bg-dark mx-auto col-9 mb-2"
-				type="search" placeholder="Search" aria-label="Search">
+			<input class="form-control border-primary bg-dark mx-auto col-9 mb-2" type="search" placeholder="Search"
+				aria-label="Search">
 			<button class="btn btn-sm btn-link" type="submit">
 				<i class="material-icons">search</i>
 			</button>
@@ -96,8 +92,7 @@
 
 
 		<div class="container-fluid" id="page-body">
-			<table
-				class="table table-hover table-responsive-sm table-dark table-md">
+			<table class="table table-hover table-responsive-sm table-dark table-md">
 				<thead>
 					<tr>
 						<th scope="col">Nombre</th>
@@ -108,10 +103,15 @@
 				<tbody>
 					<tr th:each="prov: ${proveedores}">
 						<td th:text="${prov.nombre}"></td>
+						<td>
+						<span th:remove="tag" th:if=" (${#authorization.expression('hasAuthority(''ADMIN'')')})">
 						
-						<td><a type="button" class="btn btn-sm btn-outline-danger"
-							th:href="@{/proveedores/borrar/{id}(id=${prov.nombre})}">Borrar</a></td>
-
+							<a type="button" class="btn btn-sm btn-outline-danger"
+							th:href="@{/proveedores/borrar/{id}(id=${prov.nombre})}">Borrar</a>
+						</span>
+						
+						</td>
+						
 
 					</tr>
 				</tbody>

@@ -43,13 +43,14 @@
 		<!-- Navbar links -->
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<ul class="nav">
+			<span th:remove="tag" th:if=" (${#authorization.expression('hasAuthority(''ADMIN'')')})">
 				<li class="nav-item"><a class="nav-link" href="#"><button type="button"
 							class="btn btn-sm btn-outline-success" data-toggle="modal"
 							data-target="#crearProducto">Nuevo
-							Registro</button></a></li>
-				<li class="nav-item"><a class="nav-link" href="#"> <i class="material-icons">notifications_none</i>
+							Registro</button></a></li> </span>
+				<li class="nav-item"><a class="nav-link" th:href="@{/login}"> <i class="material-icons">fingerprint</i>
 					</a></li>
-				<li class="nav-item "><a class="nav-link" href="#"> <i class="material-icons">account_circle</i>
+				<li class="nav-item "><a class="nav-link" role="button" th:href="@{/logout}"> <i class="material-icons">account_circle</i>
 
 					</a></li>
 			</ul>
@@ -115,8 +116,9 @@
 							th:href="@{/productos/editar/{id}(id=${prod.nombre})}"
 							 <td th:text="${prod.prov.nombre}"></td>-->
 						<td th:text="${prod.stock}"></td>
-
+						
 						<td>
+						<span th:remove="tag" th:if=" (${#authorization.expression('hasAuthority(''ADMIN'')')})">
 							<a type="button" class="btn btn-sm btn-outline-primary" href="#" data-toggle="modal"
 								data-target="#editarProducto"
 								th:attr="data-nombre=@{${prod.nombre}},
@@ -125,10 +127,13 @@
 								data-prov=@{${prod.prov}}">
 								Editar
 							</a>
+							
 							<a type="button" class="btn btn-sm btn-outline-danger" th:href="@{/productos/borrar/{id}(id=${prod.ref})}">
 								Borrar
 							</a>
+							</span>
 						</td>
+					
 
 
 					</tr>
