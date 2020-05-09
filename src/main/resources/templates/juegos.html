@@ -8,9 +8,9 @@
 	<title>Wibby</title>
 
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="shortcut icon" href="Sith_Eternal_insignia_blue.png" type="image/x-icon">
+	<link rel="shortcut icon" href="/Sith_Eternal_insignia_blue.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="estilo.css">
+	<link rel="stylesheet" href="/estilo.css">
 
 
 
@@ -73,9 +73,10 @@
 			</button>
 		</form>
 		<ul class="ml-2 col-9 nav nav-pills flex-column">
-			<li class="nav-item mt-3"><a class="nav-link active " th:href="@{/proveedores}"> Productos</a></li>
-			<li class="nav-item mt-3"><a class="nav-link" th:href="@{/proveedores}"> Proveedores</a></li>
-
+			<li class="nav-item mt-3"><a class="nav-link active" th:href="@{/juegos}">
+				<i class="material-icons">games</i>Juegos</a></li>
+			<li class="nav-item mt-3"><a class="nav-link" th:href="@{/plataformas}">
+				<i class="material-icons">settings_input_svideo</i>Plataformas</a></li>
 
 		</ul>
 
@@ -94,41 +95,46 @@
 					<tr>
 						<th scope="col">REF</th>
 						<th scope="col">Nombre</th>
-						<th scope="col">Proveedor</th>
-						<th scope="col">Stock</th>
+						<th scope="col">Plataforma</th>
+						<th scope="col">Pegi</th>
+						<th scope="col">Año</th>
 						<th scope="col"></th>
 
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="prod: ${productos}">
-						<td th:text="${prod.ref}"></td>
-						<td th:text="${prod.nombre}"></td>
+					<tr th:each="juego: ${juegos}">
+						<td th:text="${juego.ref}"></td>
+						<td th:text="${juego.nombre}"></td>
 						<td>
-							<div th:if="${prod.prov}!=null">
-								<p th:text="${prod.prov}"></p>
+							<div th:if="${juego.plat}!=null">
+								<a href="#" th:href="@{'/juegos/' + ${juego.plat} }" th:text="${juego.plat}"></a>
 							</div>
-							<div th:unless="${prod.prov}!=null">
-								<p>Sin Proveedor</p>
+							<div th:unless="${juego.plat}!=null">
+							<a href="#" th:href="@{/juegos/vacio}">Sin Plataforma</a>
+								<!-- <p>Sin Proveedor</p> -->
 							</div>
 						</td>
 						<!--
 							th:href="@{/productos/editar/{id}(id=${prod.nombre})}"
 							 <td th:text="${prod.prov.nombre}"></td>-->
-						<td th:text="${prod.stock}"></td>
+						<td th:text="${juego.pegi}"></td>
+						<img th:src="${juego.img}">
+						<td th:text="${juego.anio}"></td>
 						
 						<td>
 						<span th:remove="tag" th:if=" (${#authorization.expression('hasAuthority(''ADMIN'')')})">
 							<a type="button" class="btn btn-sm btn-outline-primary" href="#" data-toggle="modal"
-								data-target="#editarProducto"
-								th:attr="data-nombre=@{${prod.nombre}},
-								data-id=@{${prod.ref}},
-								data-stock=@{${prod.stock}},
-								data-prov=@{${prod.prov}}">
+								data-target="#editarJuego"
+								th:attr="data-nombre=@{${juego.nombre}},
+								data-id=@{${juego.ref}},
+								data-pegi=@{${juego.pegi}},
+								data-anio=@{${juego.anio}},
+								data-plat=@{${juego.plat}}">
 								Editar
 							</a>
 							
-							<a type="button" class="btn btn-sm btn-outline-danger" th:href="@{/productos/borrar/{id}(id=${prod.ref})}">
+							<a type="button" class="btn btn-sm btn-outline-danger" th:href="@{/juegos/borrar/{id}(id=${juego.ref})}">
 								Borrar
 							</a>
 							</span>
@@ -151,7 +157,7 @@
 						<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 					</div>
 
-					<form action="#" th:action="@{/productos/anadir}" th:object="${prod}" method="post">
+					<form action="#" th:action="@{/juegos/anadir}" th:object="${juego}" method="post">
 						<div class="modal-body">
 
 							<div class="form-row">
@@ -168,7 +174,14 @@
 
 								<div class="form-row">
 									<div class="form-group col-md-12">
-										<label for="texto">Stock</label> <input type="text" th:field="*{stock}"
+										<label for="texto">Pegi</label> 
+										<input type="text" th:field="*{pegi}" placeholder="inserta un texto" class="form-control" id="texto">
+											<a th:if="${#fields.hasErrors('pegi')}" th:errors="*{pegi}">Introduce un pegi válido,3,7,12,16 o 18 </a>
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<label for="texto"> Año de lanzamiento</label> <input type="text" th:field="*{anio}"
 											placeholder="inserta un texto" class="form-control" id="texto">
 									</div>
 								</div>
@@ -176,14 +189,14 @@
 
 								<div class="form-row">
 									<div class="form-group col-md-12">
-										<label for="prov">Proveedor</label>
+										<label for="prov">Plataforma</label>
 										<ul>
-											<li th:each="proveedor: ${proveedores}">
-												<input id="prov" type="radio"
-													name="provs"
-													th:text="${proveedor.nombre}"
-													th:field="*{prov.nombre}"
-													th:value="${proveedor.nombre}"
+											<li th:each="plat: ${plataformas}">
+												<input id="plat" type="radio"
+													name="plats"
+													th:text="${plat.nombre}"
+													th:field="*{plat.id}"
+													th:value="${plat.id}"
 													/>
 												</li>
 										</ul>
@@ -202,7 +215,7 @@
 		</div>
 
 		<!-- Modal Editar -->
-		<div class="modal " id="editarProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		<div class="modal " id="editarJuego" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 			aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -211,7 +224,7 @@
 						<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 					</div>
 
-					<form action="#" th:action="@{/productos/editar}" th:object="${prod}" method="post">
+					<form action="#" th:action="@{/juegos/editar}" th:object="${juego}" method="post">
 						<div class="modal-body">
 
 							<div class="form-row">
@@ -230,35 +243,39 @@
 
 							<div class="form-row">
 								<div class="form-group col-md-12">
-									<label for="stock">Stock</label> <input type="text" required th:field="*{stock}"
-										placeholder="inserta un texto" class="form-control" id="stock">
+									<label for="pegi">Pegi</label> <input type="text" required th:field="*{pegi}" placeholder="inserta un texto" 
+											class="form-control" id="pegi">
+										<a th:if="${#fields.hasErrors('pegi')}" th:errors="*{pegi}">Introduce un pegi válido,3,7,12,16 o 18 </a>
+								
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<label for="anio">Año de lanzamiento</label> <input type="text" required th:field="*{anio}"
+										placeholder="inserta un texto" class="form-control" id="anio">
 								</div>
 							</div>
 
 
 							<div class="form-row">
 								<div class="form-group col-md-12">
-									<label for="proveedor">Proveedor</label>
+									<label for="plataforma">Plataforma</label>
 									<ul>
-										<li th:each="prov: ${proveedores}"><input type="radio" name="permisos"
-												th:text="${prov.nombre}" th:field="*{prov.nombre}"
-												th:value="${prov.nombre}" id="prov"/></li>
+										<li th:each="plat: ${plataformas}"><input type="radio" name="plataformas"
+												th:text="${plat.nombre}"
+												th:field="*{plat.id}"
+												th:value="${plat.id}" id="plat"/></li>
 									</ul>
 								</div>
 							</div>
-
-							
-							
-
-							
-
 
 
 
 						</div>
 						<div class="modal-footer">
-							<input type="submit" value="Guardar" class="btn btn-primary float-right"> <a type="button"
-								lass="btn btn-danger" th:href="@{/productos}">Cancelar</a>
+							<!--<input type="submit" value="Guardar" class="btn btn-primary float-right">--> 
+							<button type="submit" class="btn btn-primary" th:href="@{/juegos}" data-backdrop="static">Click Me!</button>
+							<a type="button" class="btn btn-danger" th:href="@{/juegos}">Cancelar</a>
 						</div>
 					</form>
 				</div>
@@ -273,6 +290,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="js.js"></script>
+<script src="/js.js"></script>
 
 </html>

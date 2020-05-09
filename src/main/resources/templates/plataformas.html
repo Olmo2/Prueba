@@ -5,10 +5,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
+	<title>Wibby</title>
 
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+	<link rel="shortcut icon" href="/Sith_Eternal_insignia_blue.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="estilo.css">
 
@@ -47,9 +47,9 @@
 				<span th:remove="tag" th:if=" (${#authorization.expression('hasAuthority(''ADMIN'')')})">
 				<li class="nav-item"><a class="nav-link" href="#"><button type="button"
 							class="btn btn-sm btn-outline-success" data-toggle="modal"
-							data-target="#crearProducto">Nuevo
+							data-target="#crearPlataforma">Nuevo
 							Registro</button></a></li> </span>
-				<li class="nav-item"><a class="nav-link" th:href="@{/login}"> <i class="material-icons">finguerprint</i>
+				<li class="nav-item"><a class="nav-link" th:href="@{/login}"> <i class="material-icons">fingerprint</i>
 					</a></li>
 				<li class="nav-item "><a class="nav-link" th:href="@{/logout}"> <i class="material-icons">account_circle</i>
 
@@ -74,10 +74,10 @@
 			</button>
 		</form>
 		<ul class="ml-2 col-9 nav nav-pills flex-column">
-			<li class="nav-item mt-3"><a class="nav-link" th:href="@{/productos}">
-					Productos</a></li>
-			<li class="nav-item mt-3"><a class="nav-link active" th:href="@{/proveedores}">
-					Proveedores</a></li>
+			<li class="nav-item mt-3"><a class="nav-link" th:href="@{/juegos}">
+				<i class="material-icons">games</i>Juegos</a></li>
+			<li class="nav-item mt-3"><a class="nav-link active" th:href="@{/plataformas}">
+				<i class="material-icons">settings_input_svideo</i>Plataformas</a></li>
 
 
 		</ul>
@@ -95,31 +95,27 @@
 			<table class="table table-hover table-responsive-sm table-dark table-md">
 				<thead>
 					<tr>
+						<th scope="col">Id</th>
 						<th scope="col">Nombre</th>
 						<th scope="col"></th>
 
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="prov: ${proveedores}">
-						<td th:text="${prov.nombre}"></td>
-						<td>
-						<span th:remove="tag" th:if=" (${#authorization.expression('hasAuthority(''ADMIN'')')})">
-						
+					<tr th:each="plat: ${plataformas}">
+						<td th:text="${plat.id}"></td>
+						<td th:text="${plat.nombre}"></td>
+						<td> <span th:remove="tag" th:if=" (${#authorization.expression('hasAuthority(''ADMIN'')')})">
 							<a type="button" class="btn btn-sm btn-outline-danger"
-							th:href="@{/proveedores/borrar/{id}(id=${prov.nombre})}">Borrar</a>
-						</span>
-						
-						</td>
-						
-
+							th:href="@{/plataformas/borrar/{id}(id=${plat.id})}">Borrar</a>
+						</span></td>
 					</tr>
 				</tbody>
 			</table>
 
 		</div>
 		<!--MODAL -->
-		<div class="modal fade" id="crearProveedor" tabindex="-1"
+		<div class="modal fade" id="crearPlataforma" tabindex="-1"
 			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -129,14 +125,19 @@
 							aria-label="Close"></button>
 					</div>
 
-					<form action="#" th:action="@{/proveedores/anadir}"
-						th:object="${prov}" method="post">
+					<form action="#" th:action="@{/plataformas/anadir}"
+						th:object="${plat}" method="post">
 						<div class="modal-body">
 
 							<div class="form-row">
 								
 							</div>
 							<div class="form-row">
+							<div class="form-group col-md-12">
+									<label for="texto">Identificador</label> <input type="text"
+										th:field="*{id}" placeholder="inserta un texto"
+										class="form-control" id="texto">
+								</div>
 								<div class="form-group col-md-12">
 									<label for="texto">Nombre</label> <input type="text"
 										th:field="*{nombre}" placeholder="inserta un texto"

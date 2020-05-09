@@ -1,4 +1,4 @@
-package com.olmo.prueba.proveedor;
+package com.olmo.prueba.plataforma;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,61 +16,83 @@ import javax.persistence.PreRemove;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import com.olmo.prueba.productos.Producto;
+import com.olmo.prueba.juego.Juego;
 
 
 @Entity
-public class Proveedor {
+public class Plataforma {
 
 	@Id
-	private String nombre = "PROVEEDOR";
+	private String id;
+	
+	@Column
+	private String nombre;
 
 	
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "prov")
-	List<Producto> productos = new ArrayList<Producto>();
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "plat")
+	List<Juego> juegos = new ArrayList<Juego>();
 
-	public void addProducto(Producto producto) {
+	public void addProducto(Juego juego) {
 
-		if (!productos.contains(producto)) {
+		if (!juegos.contains(juego)) {
 
-			productos.add(producto);
+			juegos.add(juego);
 		}
 	}
 	
 
 	@PreRemove
-	public final void reasignarProveedor() {
+	public final void reasignarPlataforma() {
 		System.out.println("Destrucción");
 		// recorrer la lista de usuarios reasignando los roles
-		for (Producto prod : productos) {
+		for (Juego juego : juegos) {
 
-			prod.setProv(null);
+			juego.setPlat(null);
 		}
 	}
 
 	
 
+	
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
 	public String getNombre() {
 		return nombre;
 	}
+
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public List<Producto> getProductos() {
-		return productos;
+
+
+	public List<Juego> getJuegos() {
+		return juegos;
 	}
 
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
+
+	public void setJuegos(List<Juego> juegos) {
+		this.juegos = juegos;
 	}
 
+
+	
 
 	@Override
 	public String toString() {
-		return nombre ;
+		return id ;
 	}
 	
 
