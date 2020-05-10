@@ -1,5 +1,10 @@
 package com.olmo.prueba.juego;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -15,10 +20,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.olmo.prueba.plataforma.Plataforma;
 import com.olmo.prueba.plataforma.PlataformaDAO;
+import com.olmo.prueba.servicios.FicherosDB;
 
 @Controller
 public class RutasJuego {
@@ -29,6 +37,9 @@ public class RutasJuego {
 
 	@Autowired
 	private PlataformaDAO plataformaDAO;
+	
+//	@Autowired
+//	private FicherosDB ficheroDB;
 	
 	@GetMapping("/")
 	public String home() {
@@ -68,12 +79,22 @@ public class RutasJuego {
 
 	@GetMapping("/juegos")
 	public ModelAndView todosLosProductos() {
+		byte[] file = juegoDAO.findById(13).get().getImg();
+		//Path ruta = Paths.get("D:\\Descargas\\esmeralda.jpg");
+		Path ruta = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\"+ 13 +".jpg");
+		try {
+			OutputStream os = Files.newOutputStream(ruta);
+			os.write(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("juegos"); /* Nombre del html que se muestra */
 		mav.addObject("juego", new Juego());
-
+		
 		List<Juego> listaJuegos = (List<Juego>) juegoDAO.findAll();
 		mav.addObject("juegos", listaJuegos);
 
@@ -89,13 +110,22 @@ public class RutasJuego {
 	}
 
 	@PostMapping("/juegos/anadir")
-	public String juegosAnadir(@ModelAttribute Juego juego) {
+	public String juegosAnadir(@ModelAttribute Juego juego,@RequestParam(value="file") MultipartFile file) {
 		System.out.println(juego.getPlat());
 		Plataforma plataforma= new Plataforma();
 		plataforma.setId(null);
 		if(juego.getPlat().toString().equals("null")){
 			juego.setPlat(plataforma);
 		}
+		System.out.println(file);
+	//file.transferTo("/img");
+		try {
+			juego.setImg(file.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		juegoDAO.save(juego);
 
 		return "redirect:/juegos";
@@ -114,6 +144,7 @@ public class RutasJuego {
 							Errors errores,
 							/*ModelMap map*/
 							@ModelAttribute("juego") Juego game
+							
 							) {
 		System.out.println(game.getPlat().getId());
 //		Juego game = new Juego();
@@ -126,6 +157,8 @@ public class RutasJuego {
 //			System.out.println(errores.getAllErrors());
 //			return "redirect:/juegos";
 //		}
+		
+		
 
 		juegoDAO.save(game);
 
@@ -140,5 +173,22 @@ public class RutasJuego {
 
 		return "/juegos/editar";
 	}
+	
+	
+//	//ruta fichero 
+//	
+//	@PostMapping("/addFichero")
+//	public String handleFileUpload( @RequestParam("file") MultipartFile file) {
+//
+//	
+//	try {
+//	ficheroDB.guardarFichero(file);
+//	}
+//	catch (IOException e) {
+//	e.printStackTrace();
+//	}
+//	 return "misco";
+//	}
+
 
 }

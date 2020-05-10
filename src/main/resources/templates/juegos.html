@@ -94,6 +94,7 @@
 				<thead>
 					<tr>
 						<th scope="col">REF</th>
+						<th scope="col">Portada</th>
 						<th scope="col">Nombre</th>
 						<th scope="col">Plataforma</th>
 						<th scope="col">Pegi</th>
@@ -105,6 +106,7 @@
 				<tbody>
 					<tr th:each="juego: ${juegos}">
 						<td th:text="${juego.ref}"></td>
+						<td><img th:src="'/img/' + ${juego.ref} + '.jpg'"></td>
 						<td th:text="${juego.nombre}"></td>
 						<td>
 							<div th:if="${juego.plat}!=null">
@@ -157,7 +159,7 @@
 						<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 					</div>
 
-					<form action="#" th:action="@{/juegos/anadir}" th:object="${juego}" method="post">
+					<form action="#" th:action="@{/juegos/anadir}" th:object="${juego}" method="post" enctype="multipart/form-data">
 						<div class="modal-body">
 
 							<div class="form-row">
@@ -183,6 +185,13 @@
 									<div class="form-group col-md-12">
 										<label for="texto"> Año de lanzamiento</label> <input type="text" th:field="*{anio}"
 											placeholder="inserta un texto" class="form-control" id="texto">
+									</div>
+								</div>
+								
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<label for="texto">Portada</label> <input type="file" th:name="file"
+											placeholder="inserta un texto" class="form-control" id="file">
 									</div>
 								</div>
 

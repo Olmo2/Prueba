@@ -1,5 +1,6 @@
 package com.olmo.prueba.juego;
 
+import java.io.File;
 import java.sql.Blob;
 
 import javax.persistence.Column;
@@ -8,9 +9,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Size;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.olmo.prueba.plataforma.Plataforma;
 
@@ -22,15 +26,14 @@ public class Juego {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer ref;
 	
-	@Column
-	private Blob img;
-	
-	
-	public Blob getImg() {
+	@Lob
+	private byte[] img;
+
+	public byte[] getImg() {
 		return img;
 	}
 
-	public void setImg(Blob img) {
+	public void setImg(byte[] img) {
 		this.img = img;
 	}
 
