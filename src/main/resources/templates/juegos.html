@@ -130,7 +130,7 @@
 								data-id=@{${juego.ref}},
 								data-pegi=@{${juego.pegi}},
 								data-anio=@{${juego.anio}},
-								data-plat=@{${juego.plat}}">
+								data-plat=@{${juego.plat.id}}">
 								Editar
 							</a>
 							
@@ -176,7 +176,7 @@
 									<div class="form-group col-md-12">
 										<label for="texto">Pegi</label> 
 										<input type="text" th:field="*{pegi}" placeholder="inserta un texto" class="form-control" id="texto">
-											<a th:if="${#fields.hasErrors('pegi')}" th:errors="*{pegi}">Introduce un pegi válido,3,7,12,16 o 18 </a>
+											
 									</div>
 								</div>
 								<div class="form-row">
@@ -224,7 +224,7 @@
 						<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 					</div>
 
-					<form action="#" th:action="@{/juegos/editar}" th:object="${juego}" method="post">
+					<form action="#" id="editar" onsubmit="return validateForm()" th:action="@{/juegos/editar}" th:object="${juego}" method="post">
 						<div class="modal-body">
 
 							<div class="form-row">
@@ -245,7 +245,8 @@
 								<div class="form-group col-md-12">
 									<label for="pegi">Pegi</label> <input type="text" required th:field="*{pegi}" placeholder="inserta un texto" 
 											class="form-control" id="pegi">
-										<a th:if="${#fields.hasErrors('pegi')}" th:errors="*{pegi}">Introduce un pegi válido,3,7,12,16 o 18 </a>
+											<span class="text-danger" id="spegi"> </span>
+										<!--<a th:if="${#fields.hasErrors('pegi')}" th:errors="*{pegi}">Introduce un pegi válido,3,7,12,16 o 18 </a>-->
 								
 								</div>
 							</div>
@@ -253,18 +254,37 @@
 								<div class="form-group col-md-12">
 									<label for="anio">Año de lanzamiento</label> <input type="text" required th:field="*{anio}"
 										placeholder="inserta un texto" class="form-control" id="anio">
+										<span class="text-danger" id="sanio"> </span>
 								</div>
 							</div>
 
-
+						<!-- <td>
+									<div th:if="${juego.plat}!=null">
+										<a href="#" th:href="@{'/juegos/' + ${juego.plat} }" th:text="${juego.plat}"></a>
+									</div>
+									<div th:unless="${juego.plat}!=null">
+										<a href="#" th:href="@{/juegos/vacio}">Sin Plataforma</a>
+									</div>
+							</td> -->
 							<div class="form-row">
 								<div class="form-group col-md-12">
 									<label for="plataforma">Plataforma</label>
+									<p th:text="${juego.plat.id}"> </p>
 									<ul>
-										<li th:each="plat: ${plataformas}"><input type="radio" name="plataformas"
-												th:text="${plat.nombre}"
+									
+									
+										<li th:each="plata: ${plataformas}">
+										<input type="radio" th:if="${plata.id == 'NDS'}"
+												th:id="${plata.id}"
+												th:text="${plata.nombre}"
+												th:value="${plata.id}"  th:checked="${true}">
+												<!--  -->
+									 	<input type="radio"  th:unless="${plata.id == 'NDS'}"
+												th:id="${plata.id}"
+												th:text="${plata.id}"
 												th:field="*{plat.id}"
-												th:value="${plat.id}" id="plat"/></li>
+												th:value="${plata.id}">
+										</li>
 									</ul>
 								</div>
 							</div>

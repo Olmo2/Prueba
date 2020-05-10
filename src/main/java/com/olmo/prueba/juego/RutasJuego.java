@@ -112,18 +112,20 @@ public class RutasJuego {
 	@PostMapping("/juegos/editar")
 	public String juegosEditar(@Valid Juego juego,
 							Errors errores,
-							ModelMap map
-							/*@ModelAttribute("juego") Juego game*/) {
-		Juego game = new Juego();
-		
-		map.addAttribute("juego", game);
-		if(errores.hasErrors()) {
-
-			map.addAttribute("errors",errores.getAllErrors());
-
-			System.out.println(errores.getAllErrors());
-			return "redirect:/juegos";
-		}
+							/*ModelMap map*/
+							@ModelAttribute("juego") Juego game
+							) {
+		System.out.println(game.getPlat().getId());
+//		Juego game = new Juego();
+//		
+//		map.addAttribute("juego", game);
+//		if(errores.hasErrors()) {
+//
+//			map.addAttribute("errors",errores.getAllErrors());
+//
+//			System.out.println(errores.getAllErrors());
+//			return "redirect:/juegos";
+//		}
 
 		juegoDAO.save(game);
 
@@ -134,8 +136,9 @@ public class RutasJuego {
 	public String juegosEditar(@PathVariable Integer id, @ModelAttribute Juego juego) {
 
 		juego = juegoDAO.findById(id).get();
+		System.out.println(juego.getPlat().getId());
 
-		return "redirect:/juegos";
+		return "/juegos/editar";
 	}
 
 }
