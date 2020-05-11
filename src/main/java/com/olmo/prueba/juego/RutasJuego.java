@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.validation.Valid;
 
@@ -38,8 +39,8 @@ public class RutasJuego {
 	@Autowired
 	private PlataformaDAO plataformaDAO;
 	
-//	@Autowired
-//	private FicherosDB ficheroDB;
+	@Autowired
+	private FicherosDB ficheroDB;
 	
 	@GetMapping("/")
 	public String home() {
@@ -79,16 +80,18 @@ public class RutasJuego {
 
 	@GetMapping("/juegos")
 	public ModelAndView todosLosProductos() {
-		byte[] file = juegoDAO.findById(13).get().getImg();
-		//Path ruta = Paths.get("D:\\Descargas\\esmeralda.jpg");
-		Path ruta = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\"+ 13 +".jpg");
-		try {
-			OutputStream os = Files.newOutputStream(ruta);
-			os.write(file);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		byte[] file = juegoDAO.findById(13).get().getImg();
+//		
+//		//Path ruta = Paths.get("D:\\Descargas\\esmeralda.jpg");
+//		Path ruta = Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\"+ 13 +".jpg");
+//		try {
+//			OutputStream os = Files.newOutputStream(ruta);
+//			os.write(file);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 		
 		
 		ModelAndView mav = new ModelAndView();
@@ -97,6 +100,12 @@ public class RutasJuego {
 		
 		List<Juego> listaJuegos = (List<Juego>) juegoDAO.findAll();
 		mav.addObject("juegos", listaJuegos);
+		try {
+			ficheroDB.guardarFichero(listaJuegos);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		List<Plataforma> listaPlataformas = (List<Plataforma>) plataformaDAO.findAll();
 		mav.addObject("plataformas", listaPlataformas);
@@ -114,6 +123,7 @@ public class RutasJuego {
 		System.out.println(juego.getPlat());
 		Plataforma plataforma= new Plataforma();
 		plataforma.setId(null);
+		System.out.println(juego.getPlat().toString());
 		if(juego.getPlat().toString().equals("null")){
 			juego.setPlat(plataforma);
 		}
@@ -143,8 +153,8 @@ public class RutasJuego {
 	public String juegosEditar(@Valid Juego juego,
 							Errors errores,
 							/*ModelMap map*/
-							@ModelAttribute("juego") Juego game
-							
+							@ModelAttribute("juego") Juego game,
+							@RequestParam(value="file") MultipartFile file
 							) {
 		System.out.println(game.getPlat().getId());
 //		Juego game = new Juego();
@@ -158,7 +168,16 @@ public class RutasJuego {
 //			return "redirect:/juegos";
 //		}
 		
-		
+		try {
+			if(file.isEmpty()) {
+				juego.setImg(juegoDAO.findById(juego.getRef()).get().getImg());
+			}else {
+			juego.setImg(file.getBytes());
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		juegoDAO.save(game);
 

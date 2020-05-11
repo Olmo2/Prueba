@@ -2,6 +2,7 @@ package com.olmo.prueba.juego;
 
 import java.io.File;
 import java.sql.Blob;
+import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -99,8 +100,11 @@ public class Juego {
 
 	@Override
 	public String toString() {
-		return "Juego [ref=" + ref + ", nombre=" + nombre + ", pegi=" + pegi + ", año=" + anio + ", prov=" + plat + "]";
+		return "Juego [ref=" + ref + ", img=" + img + ", nombre=" + nombre + ", pegi=" + pegi
+				+ ", anio=" + anio + ", plat=" + plat + "]";
 	}
+
+	
 	
 	
 
