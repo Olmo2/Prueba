@@ -24,15 +24,15 @@
             <form id="buscarForm" class="form-inline col-8" onsubmit="Busqueda()" th:action="@{/juegos/{filtro}}">
                 <input id="buscar" class="form-control border-primary bg-dark col-10 mx-auto " type="search" placeholder="Buscar" aria-label="Buscar">
                 <button id="botonBuscar" class="btn btn-sm btn-link col-1" type="submit">
-					<i class="material-icons">search</i>
-				</button>
+                    <i class="material-icons">search</i>
+                </button>
             </form>
         </a>
 
         <!-- Toggler/collapsibe Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
         <!-- Navbar links -->
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -79,13 +79,14 @@
                 </a>
             </li>
             <li class="nav-item mt-3">
-                <a class="nav-link active" th:href="@{/distribuidores}"> <i class="material-icons">videogame_asset</i>Distribuidores
+                <a class="nav-link" th:href="@{/distribuidores}"> <i class="material-icons">videogame_asset</i>Distribuidores
                 </a>
             </li>
             <li class="nav-item mt-3">
-                <a class="nav-link" th:href="@{/desarrolladores}"> <i class="material-icons">code</i>Desarrolladores
+                <a class="nav-link active" th:href="@{/desarrolladores}"> <i class="material-icons">code</i>Desarrolladores
                 </a>
             </li>
+
         </ul>
 
         <!--/#sidebar-->
@@ -110,27 +111,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="dist: ${distribuidores}">
-                        <td th:text="${dist.id}"></td>
-                        <td><img th:src="'/img/' + ${dist.id} + '.jpg'" width="90"></td>
+                    <tr th:each="desa: ${desarrolladores}">
+                        <td th:text="${desa.id}"></td>
+                        <td><img th:src="'/img/' + ${desa.id} + '.jpg'" width="90"></td>
                         <td>
-                            <a th:text="${dist.nombre}" th:href="@{'/distribuidores/' + ${dist.id} }"> </a>
+                            <a th:text="${desa.nombre}" th:href="@{'/desarrolladores/' + ${desa.id} }"> </a>
                         </td>
-                        <td th:text="${dist.pais}"></td>
+                        <td th:text="${desa.pais}"></td>
 
                         <td><span th:remove="tag" th:if=" (${#authorization.expression('hasAuthority(''ADMIN'')')})">
 								<a type="button" class="btn btn-lg btn-primary" href="#"
-								data-toggle="modal" data-target="#editarDist"
-                                th:attr="data-nombre=@{${dist.nombre}},
-								data-id=@{${dist.id}},
-								data-pais=@{${dist.pais}},
-								data-desc=@{${dist.descripcion}},
-								data-anio=@{${dist.anio}},
-								data-img=@{${dist.img}}">
+								data-toggle="modal" data-target="#editarDesa"
+                                th:attr="
+                                data-nombre=@{${desa.nombre}},
+								data-id=@{${desa.id}},
+								data-pais=@{${desa.pais}},
+								data-desc=@{${desa.descripcion}},
+								data-anio=@{${desa.anio}},
+								data-img=@{${desa.img}}">
                                     Editar 
                                 </a>
                                      <a type="button" class="btn btn-lg btn-danger"
-							            th:href="@{/distribuidores/borrar/{id}(id=${dist.id})}"> Borrar </a>
+							            th:href="@{/desarrolladores/borrar/{id}(id=${desa.id})}"> Borrar </a>
                             </span>
                         </td>
                     </tr>
@@ -147,7 +149,7 @@
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <form action="#" id="crear" onsubmit="return validateFormCrear()" th:action="@{/distribuidores/anadir}" th:object="${dist}" method="post" enctype="multipart/form-data">
+                    <form action="#" id="crear" onsubmit="return validateFormCrear()" th:action="@{/desarrolladores/anadir}" th:object="${desa}" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
 
                             <div class="form-row">
@@ -172,7 +174,7 @@
 
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <label for="texto">Anio</label>
+                                        <label for="texto">Año de Creación</label>
                                         <input type="text" th:field="*{anio}" placeholder="inserta un texto" class="form-control" id="texto">
                                         <span class="text-danger" id="sanio-crear"> </span>
                                     </div>
@@ -211,7 +213,7 @@
         </div>
 
         <!-- Modal Editar -->
-        <div class="modal " id="editarDist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal " id="editarDesa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -219,33 +221,36 @@
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <form action="#" id="editar" onsubmit="return validateFormEditar()" th:action="@{/distribuidores/editar}" th:object="${dist}" method="post" enctype="multipart/form-data">
+                    <form action="#" id="editar" onsubmit=" return validateFormEditar()" th:action="@{/desarrolladores/editar}" th:object="${desa}" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
 
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <label for="ID">Id</label> <input type="text" th:field="*{id}" class="form-control" id="ID">
+                                    <label for="ID">Id</label>
+                                    <input type="text" th:field="*{id}" class="form-control" id="ID">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <label for="nombre">Nombre</label> <input type="text" required th:field="*{nombre}" placeholder="inserta un texto" class="form-control" id="nombre">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" required th:field="*{nombre}" placeholder="inserta un texto" class="form-control" id="nombre">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <label for="pais">Pais</label> <input type="text" required th:field="*{pais}" placeholder="inserta un texto" class="form-control" id="pais">
+                                    <label for="pais">Pais</label>
+                                    <input type="text" required th:field="*{pais}" placeholder="inserta un texto" class="form-control" id="pais">
 
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <label for="anio">Anio</label>
+                                    <label for="anio">Año de Creación</label>
                                     <input type="text" th:field="*{anio}" placeholder="inserta un texto" class="form-control" id="anio">
-                                    <span class="text-danger" id="sanio-editar"></span>
+                                    <span class="text-danger" id="sanio-editar"> </span>
                                 </div>
                             </div>
 

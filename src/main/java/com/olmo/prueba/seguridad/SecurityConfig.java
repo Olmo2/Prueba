@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
         .formLogin()
             .usernameParameter("username")
             .passwordParameter("password")
-            .defaultSuccessUrl("/juegos")
+//            .defaultSuccessUrl("/juegos")
             .and()
         .logout()
         .logoutUrl("/logout")

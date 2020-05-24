@@ -90,6 +90,10 @@
                 <a class="nav-link" th:href="@{/distribuidores}"> <i class="material-icons">videogame_asset</i>Distribuidores
                 </a>
             </li>
+            <li class="nav-item mt-3">
+                <a class="nav-link" th:href="@{/desarrolladores}"> <i class="material-icons">code</i>Desarrolladores
+                </a>
+            </li>
 
         </ul>
 
@@ -113,6 +117,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Plataforma</th>
                         <th scope="col">Distribuidor</th>
+                        <th scope="col">Desarrollador</th>
 
                         <th scope="col"></th>
 
@@ -143,6 +148,15 @@
                                 <!-- <p>Sin Proveedor</p> -->
                             </div>
                         </td>
+                        <td>
+                            <div th:if="${juego.desa}!=null">
+                                <a th:id="'desa' + ${juego.ref}" href="#" th:href="@{'/juegos/' + ${juego.desa} }" th:text="${juego.desa}"></a>
+                            </div>
+                            <div th:unless="${juego.desa}!=null">
+                                <a th:id="'desa' + ${juego.ref}" href="#" th:href="@{/juegos/noDesa}">Sin Desarrollador</a>
+                                <!-- <p>Sin Proveedor</p> -->
+                            </div>
+                        </td>
                         <!--
 							th:href="@{/productos/editar/{id}(id=${prod.nombre})}"
 							 <td th:text="${prod.prov.nombre}"></td>
@@ -157,6 +171,7 @@
 								data-pegi=@{${juego.pegi}},
 								data-anio=@{${juego.anio}},
                                 data-img=@{${juego.img}},
+                                data-img=@{${juego.desa}},
                                 data-desc=@{${juego.descripcion}}">
 									Editar </a> <a type="button" class="btn btn-lg btn-danger"
 								th:href="@{/juegos/borrar/{id}(id=${juego.ref})}"> Borrar </a>
@@ -178,7 +193,7 @@
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <form action="#" id="crear" th:action="@{/juegos/anadir}" onsubmit="return validateFormCrear()" th:object="${juego}" method="post" enctype="multipart/form-data">
+                    <form action="#" id="crear" th:action="@{/juegos/anadir}" onsubmit="return validateFormCrearJuegos()" th:object="${juego}" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
 
                             <div class="form-row">
@@ -195,7 +210,7 @@
                                     <div class="form-group col-md-12">
                                         <label for="texto">Pegi</label>
                                         <input type="text" th:field="*{pegi}" placeholder="inserta un texto" class="form-control" id="texto">
-                                        <span class="text-danger" id="spegi"> </span>
+                                        <span class="text-danger" id="spegi-crear"> </span>
 
                                     </div>
                                 </div>
@@ -203,7 +218,7 @@
                                     <div class="form-group col-md-12">
                                         <label for="texto"> Año de lanzamiento</label>
                                         <input type="text" th:field="*{anio}" placeholder="inserta un texto" class="form-control" id="texto">
-                                        <span class="text-danger" id="sanio"> </span>
+                                        <span class="text-danger" id="sanio-crear"> </span>
                                     </div>
                                 </div>
 
@@ -226,8 +241,9 @@
                                 </div>
 
                                 <div class="form-row">
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-12">
                                         <label for="prov">Plataforma</label>
+                                        <span class="text-danger" id="splat-crear"></span>
                                         <ul>
                                             <li th:each="plat: ${plataformas}" class="form-check">
                                                 <label class="form-check-label mr-1">
@@ -241,8 +257,9 @@
                                 </div>
 
                                 <div class="form-row">
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-12">
                                         <label for="prov">Distribuidor</label>
+                                        <span class="text-danger" id="sdist-crear"></span>
                                         <ul>
                                             <li th:each="dist: ${distribuidores}" class="form-check">
                                                 <label class="form-check-label mr-1">
@@ -251,6 +268,24 @@
 											th:text="${dist.nombre}"
 											th:field="*{dist.id}" 
 											th:value="${dist.id}" >
+											</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="prov">Desarrollador</label>
+                                        <span class="text-danger" id="sdesa-crear"></span>
+                                        <ul>
+                                            <li th:each="desa: ${desarrolladores}" class="form-check">
+                                                <label class="form-check-label mr-1">
+											 <input type="radio" class="form-check-input" 
+											th:id="${desa.id}" 
+											th:text="${desa.nombre}"
+											th:field="*{desa.id}" 
+											th:value="${desa.id}" >
 											</label>
                                             </li>
                                         </ul>
@@ -276,7 +311,7 @@
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <form action="#" id="editar" onsubmit="return validateForm()" th:action="@{/juegos/editar}" th:object="${juego}" method="post" enctype="multipart/form-data">
+                    <form action="#" id="editar" onsubmit="return validateFormEditarJuegos()" th:action="@{/juegos/editar}" th:object="${juego}" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
 
                             <div class="form-row">
@@ -294,7 +329,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="pegi">Pegi</label> <input type="text" required th:field="*{pegi}" placeholder="inserta un texto" class="form-control" id="pegi">
-                                    <span class="text-danger" id="spegi"> </span>
+                                    <span class="text-danger" id="spegi-editar"> </span>
                                     <!--<a th:if="${#fields.hasErrors('pegi')}" th:errors="*{pegi}">Introduce un pegi válido,3,7,12,16 o 18 </a>-->
 
                                 </div>
@@ -302,7 +337,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="anio">Año de lanzamiento</label> <input type="text" required th:field="*{anio}" placeholder="inserta un texto" class="form-control" id="anio">
-                                    <span class="text-danger" id="sanio"> </span>
+                                    <span class="text-danger" id="sanio-editar"> </span>
                                 </div>
                             </div>
 
@@ -328,6 +363,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="plataforma">Plataforma</label>
+                                    <span class="text-danger" id="splat-editar"></span>
                                     <ul>
                                         <li th:each="plat: ${plataformas}" class="form-check">
                                             <label class="form-check-label mr-1">
@@ -346,6 +382,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="dist">Distribuidor</label>
+                                    <span class="text-danger" id="sdist-editar"></span>
                                     <ul>
                                         <li th:each="dist: ${distribuidores}" class="form-check">
                                             <label class="form-check-label mr-1">
@@ -354,6 +391,24 @@
 										th:text="${dist.nombre}"
 										th:field="*{dist.id}" 
 										th:value="${dist.id}" >
+										</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="dist">Desarrollador</label>
+                                    <span class="text-danger" id="sdesa-editar"></span>
+                                    <ul>
+                                        <li th:each="desa: ${desarrolladores}" class="form-check">
+                                            <label class="form-check-label mr-1">
+										 <input type="radio" class="form-check-input" 
+										th:id="${desa.id}"
+										th:text="${desa.nombre}"
+										th:field="*{desa.id}" 
+										th:value="${desa.id}" >
 										</label>
                                         </li>
                                     </ul>

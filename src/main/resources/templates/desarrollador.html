@@ -67,7 +67,7 @@
 				<i class="material-icons">search</i>
 			</button>
         </form> -->
-        <ul class="ml-3 mr-5 col-9 nav nav-pills flex-column">
+        <ul class="ml-3 mr-5  col-9 nav nav-pills flex-column">
             <li class="nav-item mt-3">
                 <a class="nav-link" th:href="@{/juegos}"> <i class="material-icons">games</i>Juegos
                 </a>
@@ -95,13 +95,14 @@
     <!-- Page Content -->
     <div class="container-fluid d-flex p-2 col-11" id="page-content-wrapper">
 
-        <img th:src="'/img/' + ${juego.ref} + '.jpg'" width="50%" height="80%" class="col-6" alt="...">
+        <img th:src="'/img/' + ${desa.id} + '.jpg'" width="50%" height="90%" class="col-6" alt="...">
         <div class="text-light">
-            <h5 th:text="'Nombre: ' + ${juego.nombre}"> </h5>
-            <h5 th:text="'Año de lanzamiento: ' + ${juego.anio}"></h5>
-            <h5 th:text="'Código Pegi: +' + ${juego.pegi}"></h5>
-            <p th:text="${juego.descripcion}"></p>
-            <a th:href="@{/juegos}" class="btn btn-danger">Todos los Juegos</a>
+            <h5 th:text="'Nombre: '+ ${desa.nombre}"> </h5>
+            <h5 th:text="'Pais : ' + ${desa.pais}"></h5>
+            <h5 th:text="'Año de fundación: ' + ${desa.anio}"></h5>
+            <p th:text="${desa.descripcion}"></p>
+            <a th:href="@{'/juegos/' + ${desa.id}}" class="btn btn-danger">Lista de Juegos</a>
+            <a th:href="@{/desarrolladores}" class="btn btn-warning">Lista de desarrolladores</a>
         </div>
 
 

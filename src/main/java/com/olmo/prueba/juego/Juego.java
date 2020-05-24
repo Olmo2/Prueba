@@ -1,6 +1,5 @@
 package com.olmo.prueba.juego;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,17 +11,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import com.olmo.prueba.desarrollador.Desarrollador;
 import com.olmo.prueba.distribuidor.Distribuidor;
 import com.olmo.prueba.plataforma.Plataforma;
 
 @Entity
-@Table(name="juegos")
+@Table(name = "juegos")
 public class Juego {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ref;
-	
+
 	@Lob
 	private byte[] img;
 
@@ -30,12 +30,11 @@ public class Juego {
 	private String nombre;
 
 	@Column
-	@Size(min = 1, max = 2)
 	private String pegi;
 
 	@Column
 	private String anio;
-	
+
 	@Column(length = 65535, columnDefinition = "text")
 	private String descripcion;
 
@@ -44,17 +43,16 @@ public class Juego {
 
 	@ManyToOne(optional = true, fetch = FetchType.EAGER)
 	private Distribuidor dist = new Distribuidor();
-	
-	
 
-	
-	
-	public String getDescripcion() {
-		return descripcion;
+	@ManyToOne(optional = true, fetch = FetchType.EAGER)
+	private Desarrollador desa = new Desarrollador();
+
+	public Integer getRef() {
+		return ref;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setRef(Integer ref) {
+		this.ref = ref;
 	}
 
 	public byte[] getImg() {
@@ -64,14 +62,6 @@ public class Juego {
 	public void setImg(byte[] img) {
 		this.img = img;
 	}
-	
-	public Integer getRef() {
-		return ref;
-	}
-
-	public void setRef(Integer ref) {
-		this.ref = ref;
-	}
 
 	public String getNombre() {
 		return nombre;
@@ -79,14 +69,6 @@ public class Juego {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public Plataforma getPlat() {
-		return plat;
-	}
-
-	public void setPlat(Plataforma plat) {
-		this.plat = plat;
 	}
 
 	public String getPegi() {
@@ -104,8 +86,22 @@ public class Juego {
 	public void setAnio(String anio) {
 		this.anio = anio;
 	}
-	
-	
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Plataforma getPlat() {
+		return plat;
+	}
+
+	public void setPlat(Plataforma plat) {
+		this.plat = plat;
+	}
 
 	public Distribuidor getDist() {
 		return dist;
@@ -113,6 +109,14 @@ public class Juego {
 
 	public void setDist(Distribuidor dist) {
 		this.dist = dist;
+	}
+
+	public Desarrollador getDesa() {
+		return desa;
+	}
+
+	public void setDesa(Desarrollador desa) {
+		this.desa = desa;
 	}
 
 	@Override
