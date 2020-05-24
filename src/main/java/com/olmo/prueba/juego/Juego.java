@@ -1,8 +1,5 @@
 package com.olmo.prueba.juego;
 
-import java.io.File;
-import java.sql.Blob;
-import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,23 +9,53 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-import org.springframework.web.multipart.MultipartFile;
-
+import com.olmo.prueba.distribuidor.Distribuidor;
 import com.olmo.prueba.plataforma.Plataforma;
 
 @Entity
+@Table(name="juegos")
 public class Juego {
 
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer ref;
 	
 	@Lob
 	private byte[] img;
+
+	@Column
+	private String nombre;
+
+	@Column
+	@Size(min = 1, max = 2)
+	private String pegi;
+
+	@Column
+	private String anio;
+	
+	@Column(length = 65535, columnDefinition = "text")
+	private String descripcion;
+
+	@ManyToOne(optional = true, fetch = FetchType.EAGER)
+	private Plataforma plat = new Plataforma();
+
+	@ManyToOne(optional = true, fetch = FetchType.EAGER)
+	private Distribuidor dist = new Distribuidor();
+	
+	
+
+	
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
 	public byte[] getImg() {
 		return img;
@@ -37,24 +64,7 @@ public class Juego {
 	public void setImg(byte[] img) {
 		this.img = img;
 	}
-
-	@Column
-	private String nombre;
 	
-	@Column
-	@Size(min=1,max=2)
-	private String pegi;
-	
-	@Column
-	private String anio;
-	
-
-	@ManyToOne(optional=true,fetch=FetchType.EAGER)
-	private Plataforma plat = new Plataforma();
-	
-	
-
-
 	public Integer getRef() {
 		return ref;
 	}
@@ -71,7 +81,6 @@ public class Juego {
 		this.nombre = nombre;
 	}
 
-	
 	public Plataforma getPlat() {
 		return plat;
 	}
@@ -88,8 +97,6 @@ public class Juego {
 		this.pegi = pegi;
 	}
 
-
-
 	public String getAnio() {
 		return anio;
 	}
@@ -97,24 +104,21 @@ public class Juego {
 	public void setAnio(String anio) {
 		this.anio = anio;
 	}
+	
+	
+
+	public Distribuidor getDist() {
+		return dist;
+	}
+
+	public void setDist(Distribuidor dist) {
+		this.dist = dist;
+	}
 
 	@Override
 	public String toString() {
-		return "Juego [ref=" + ref + ", img=" + img + ", nombre=" + nombre + ", pegi=" + pegi
-				+ ", anio=" + anio + ", plat=" + plat + "]";
+		return "Juego [ref=" + ref + ", img=" + img + ", nombre=" + nombre + ", pegi=" + pegi + ", anio=" + anio
+				+ ", plat=" + plat + "]";
 	}
 
-	
-	
-	
-
-	
-	
-
-	
-	
-	
-	
-	
-	
 }

@@ -1,18 +1,27 @@
 package com.olmo.prueba.plataforma;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.olmo.prueba.distribuidor.Distribuidor;
 import com.olmo.prueba.juego.Juego;
 import com.olmo.prueba.juego.JuegoDAO;
+import com.olmo.prueba.servicios.FicherosDB;
 
 
 @Controller
@@ -25,6 +34,9 @@ public class RutasPlataforma {
 	@Autowired
 	JuegoDAO juegoDAO;
 	
+	@Autowired 
+	FicherosDB ficheroDB;
+	
 	@GetMapping("/plataformas")
 	public ModelAndView todoslosProveedores() {
 		
@@ -35,15 +47,43 @@ public class RutasPlataforma {
 		
 		List<Plataforma> listaPlataformas = (List<Plataforma>)plataformaDAO.findAll();
 		mav.addObject("plataformas",listaPlataformas);
+		try {
+			ficheroDB.guardarListaPlataformas(listaPlataformas);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		
 		return mav;
 	}
 	
+	@GetMapping("/plataformas/{filtro}")
+	public ModelAndView plataforma(@PathVariable String filtro) {
+		
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("plataforma");
+		Plataforma plat = plataformaDAO.findById(filtro).get();
+		mav.addObject("plat",plat);
+		
+		
+		
+		
+		return mav;
+	}
+	
+	
 	@PostMapping("/plataformas/anadir")
-	public String proveedorAnadir(@ModelAttribute Plataforma plataforma) {
-
+	public String proveedorAnadir(@ModelAttribute Plataforma plataforma,
+			@RequestParam(value="file") MultipartFile file) {
+		try {
+			plataforma.setImg(file.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		plataformaDAO.save(plataforma);
 		
 		return "redirect:/plataformas";
@@ -56,4 +96,56 @@ public class RutasPlataforma {
 		
 		return "redirect:/plataformas";
 	}
+	
+	@PostMapping("/plataformas/editar")
+	public String plataformasEditar(@Valid Juego juego, Errors errores,
+			/* ModelMap map */
+			@ModelAttribute("plat") Plataforma plat, @RequestParam(value = "file") MultipartFile file) {
+
+		try {
+			if (file.isEmpty()) {
+				plat.setImg(plataformaDAO.findById(plat.getId()).get().getImg());
+			} else {
+				plat.setImg(file.getBytes());
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		plataformaDAO.save(plat);
+
+		return "redirect:/plataformas";
+	}
+
+	@GetMapping("/plataformas/editar/{id}")
+	public String plataformasEditar(@PathVariable String id, @ModelAttribute Plataforma plat) {
+
+		plat = plataformaDAO.findById(id).get();
+
+		return "redirect:/plataforma/editar";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -15,7 +15,12 @@
     background-color: rgba(0, 123, 255)
 }
 
+table {
+    font-size: 160%;
+}
+
 #sidebar-wrapper {
+    z-index: 9999;
     overflow-y: scroll;
     position: fixed;
     padding: 0.3%;

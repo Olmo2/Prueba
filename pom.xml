@@ -9,12 +9,12 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+	<packaging>war</packaging>
 	<groupId>com.olmo</groupId>
 	<artifactId>Prueba</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Prueba</name>
 	<description>JPA con Hibernate y Thymeleaf</description>
-
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -34,7 +34,11 @@
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -45,7 +49,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-			<version>2.2.5.RELEASE</version>
 		</dependency>
 
 

@@ -16,6 +16,7 @@
 }
 
 #sidebar-wrapper {
+    z-index: 9999;
     overflow-y: scroll;
     position: fixed;
     padding: 0.3%;
@@ -25,7 +26,7 @@
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
-    background-image: url(../imagenes/Sith_Eternal_insignia_blue.png);
+    background-image: url(Sith_Eternal_insignia_blue.png);
     background-position: top left;
     background-repeat: no-repeat;
 }
