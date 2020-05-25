@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 import com.olmo.prueba.desarrollador.Desarrollador;
 import com.olmo.prueba.distribuidor.Distribuidor;

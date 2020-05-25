@@ -51,11 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
         .formLogin()
             .usernameParameter("username")
             .passwordParameter("password")
-//            .defaultSuccessUrl("/juegos")
+            .defaultSuccessUrl("/")
             .and()
         .logout()
         .logoutUrl("/logout")
-        .logoutSuccessUrl("/juegos")
+        .logoutSuccessUrl("/")
         	.permitAll()
             .and()
         .csrf().disable();

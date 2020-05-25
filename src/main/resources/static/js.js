@@ -15,6 +15,15 @@ $("#page-body").click(function() {
 
 });
 
+$("#collapsibleNavbar").click(function() {
+    if (visible) {
+        visible = false;
+        $("#wrapper").toggleClass("toggled");
+    }
+
+});
+
+
 //PLATAFORMAS
 $("#editarPlataforma").on("show.bs.modal", function(event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
@@ -85,10 +94,10 @@ $("#editarJuego").on("show.bs.modal", function(event) {
     var dist = document.getElementById("dist" + id).innerHTML;
     var plat = document.getElementById("plat" + id).innerHTML;
     var desa = document.getElementById("desa" + id).innerHTML;
+
     //data-plat=@{${juego.plat.id}},
     var anio = button.data("anio");
-    var img = button.data("img")
-    alert(plat);
+
     // If necessary, you could initiate an AJAX request here (and then do the
     // updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a
@@ -109,42 +118,13 @@ $("#editarJuego").on("show.bs.modal", function(event) {
 });
 
 
-function check(name, lista) {
-    alert("ghola")
-    var checked = false;
-    for (var i = 0; i < lista.length; i++) {
-        if (lista[i].name === name && !lista[i].checked) {
-            checked = true;
-        }
-    }
-    if (!checked) {
-        alert("mal")
-        document.getElementById("splat").innerHTML = "Selecciona una plataforma, Distribuidor y Desarrollador "
-        return 1
-    } else {
-        document.getElementById("splat").innerHTML = "pepeio"
-        return 0
-
-    }
-}
-
 // validacion del formulario crear juegos
 function validateFormCrearJuegos() {
-    /*if ($("input[name=plat.id]:checked").length > 0) {
-        // error++;
-        //document.getElementById("splat").innerHTML = "Selecciona una plataforma cara culo";
-        alert("cojones")
-    }
-    if ($("input[name=plat.id]:checked").length < 0) {
-        // error++;
-        //document.getElementById("splat").innerHTML = "Selecciona una plataforma cara culo";
-        alert("manolo")
-    }*/
-
 
     var pegi = document.forms["crear"]["pegi"].value;
     var anio = document.forms["crear"]["anio"].value;
     var lista = document.forms["crear"].getElementsByTagName("input");
+
 
     var regpegi = /(3|7|12|16|18)/g
     var reganio = /^(19|20)\d{2}$/g
@@ -180,7 +160,6 @@ function validateFormCrearJuegos() {
 
     }
 
-
     checked = false;
     for (var i = 0; i < lista.length; i++) {
         if (lista[i].name == "desa.id" && lista[i].checked) {
@@ -196,27 +175,13 @@ function validateFormCrearJuegos() {
 
     }
 
-
-    /*  for (var i = 0; i < platid.length; i++) {
-          if (platid[i].name === "plat.id" && platid[i].checked) {
-              checked = true;
-          }
-      }
-      if (!checked) {
-          document.getElementById("splat").innerHTML = "Selecciona una plataforma, Distribuidor y Desarrollador "
-          error++
-      } else {
-          alert("borrar")
-          document.getElementById("splat").innerHTML = ""
-
-      }*/
-
     if (pegi < 19 && regpegi.test(pegi)) {
         document.getElementById("spegi-crear").innerHTML = "";
     } else {
         document.getElementById("spegi-crear").innerHTML = "Introduce un código pegi válido: 3,7,12,16 ó 18";
         error++;
     }
+
     if (reganio.test(anio)) {
         document.getElementById("sanio-crear").innerHTML = "";
     } else {
@@ -235,9 +200,12 @@ function validateFormCrearJuegos() {
 
 //validacion formulario editar Juegos
 function validateFormEditarJuegos() {
+
+
     var pegi = document.forms["editar"]["pegi"].value;
     var anio = document.forms["editar"]["anio"].value;
     var lista = document.forms["editar"].getElementsByTagName("input");
+
 
     var regpegi = /(3|7|12|16|18)/g
     var reganio = /^(19|20)\d{2}$/g
@@ -314,9 +282,20 @@ function validateFormEditarJuegos() {
 
 // validacion del formulario crear Distribuidores
 function validateFormCrear() {
+
     var anio = document.forms["crear"]["anio"].value;
+    var id = document.forms["crear"]["ID-crear"].value;
+
+    var regid = new RegExp("^[a-zA-Z0-9]*$");
     var reganio = /^(19|20)\d{2}$/g
     var error = 0;
+
+    if (regid.test(id)) {
+        document.getElementById("sid-crear").innerHTML = "";
+    } else {
+        document.getElementById("sid-crear").innerHTML = "El Id no puede contener espacios en blanco";
+        error++;
+    }
     if (reganio.test(anio)) {
         document.getElementById("sanio-crear").innerHTML = "";
     } else {
@@ -335,8 +314,11 @@ function validateFormCrear() {
 function validateFormEditar() {
 
     var anio = document.forms["editar"]["anio"].value;
+
     var reganio = /^(19|20)\d{2}$/g
     var error = 0;
+
+
     if (reganio.test(anio)) {
         document.getElementById("sanio-editar").innerHTML = "";
     } else {

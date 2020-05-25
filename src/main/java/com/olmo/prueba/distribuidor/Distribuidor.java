@@ -11,8 +11,6 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.PreRemove;
 
-import org.hibernate.validator.constraints.Length;
-
 import com.olmo.prueba.juego.Juego;
 
 @Entity

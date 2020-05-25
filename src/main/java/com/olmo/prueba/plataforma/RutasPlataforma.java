@@ -1,9 +1,7 @@
 package com.olmo.prueba.plataforma;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.olmo.prueba.distribuidor.Distribuidor;
 import com.olmo.prueba.juego.Juego;
 import com.olmo.prueba.juego.JuegoDAO;
 import com.olmo.prueba.servicios.FicherosDB;

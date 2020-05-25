@@ -1,7 +1,6 @@
 package com.olmo.prueba.distribuidor;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.olmo.prueba.juego.Juego;
 import com.olmo.prueba.juego.JuegoDAO;
-import com.olmo.prueba.plataforma.Plataforma;
 import com.olmo.prueba.servicios.FicherosDB;
 
 @Controller

@@ -7,17 +7,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.olmo.prueba.desarrollador.Desarrollador;
 import com.olmo.prueba.distribuidor.Distribuidor;
 import com.olmo.prueba.juego.Juego;
-import com.olmo.prueba.juego.JuegoDAO;
 import com.olmo.prueba.plataforma.Plataforma;
 
 @Service

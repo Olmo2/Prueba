@@ -1,21 +1,13 @@
 package com.olmo.prueba.juego;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -54,7 +46,7 @@ public class RutasJuego {
 	@GetMapping("/")
 	public String home() {
 
-		return "redirect:/juegos";
+		return "bienvenida";
 	}
 
 	@GetMapping("/juegos")
@@ -81,10 +73,10 @@ public class RutasJuego {
 		List<Desarrollador> listaDesarrolladores = (List<Desarrollador>) desaDAO.findAll();
 		mav.addObject("desarrolladores", listaDesarrolladores);
 
-		ArrayList<Juego> lista = new ArrayList<Juego>();
-		lista = (ArrayList<Juego>) juegoDAO.findAll();
-		System.out.println(lista);
-		System.out.println(juegoDAO.findAll());
+//		ArrayList<Juego> lista = new ArrayList<Juego>();
+//		lista = (ArrayList<Juego>) juegoDAO.findAll();
+//		System.out.println(lista);
+//		System.out.println(juegoDAO.findAll());
 
 		return mav;
 	}

@@ -3,9 +3,6 @@ package com.olmo.prueba.plataforma;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,10 +11,6 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.Length;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
 
 import com.olmo.prueba.juego.Juego;
 
